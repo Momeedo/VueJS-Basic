@@ -3,6 +3,8 @@
         <h1>This is a demo page of basic VueJS features</h1>
     </div>
     <div class="spacing"></div>
+    <PropsDemo :propFromParent="propFromBasicPage"></PropsDemo>
+    <div class="spacing"></div> 
     <div>
         <div v-if="!keywords.length">No Keywords in the list.</div>
         <div v-text="'There are ' + keywords.length + ' element(s)'"></div>
@@ -25,9 +27,8 @@
 </template>
 
 <script>
+import PropsDemo from '../components/PropsDemo.vue'
 export default {
-    props: {
-    },
     watch: {
         newKeyword(newKey, oldKey) {
             console.log("Input Keyword changed from " + oldKey + " to " + newKey + ".");
@@ -60,8 +61,17 @@ export default {
         return {
             keywords: ["Sports", "Cinema", "Music"],
             newKeyword: "",
+            propFromBasicPage: ["VueJS", "Laravel", "DevOps"],
         }
     },
+    components: {
+        PropsDemo
+    },
+    mounted() {
+        setTimeout(() => {
+            this.propFromBasicPage.push("ReactJS");
+        }, 3000)
+    }
 
 }
 </script>
