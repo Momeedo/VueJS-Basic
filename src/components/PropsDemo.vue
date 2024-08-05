@@ -1,13 +1,20 @@
 <template>
     <div>
-        Selected Keywords: {{ propFromParent }}
+        Selected Keywords from Child: {{ propFromParent }}
     </div>
 
 </template>
 
 <script>
 export default {
-    props: ["propFromParent"],
+    props: {
+        propFromParent: {
+            type: Array,
+            required: true,
+            default: () => []
+        }
+    },
+    //props: ["propFromParent"],
 
 }
 </script>

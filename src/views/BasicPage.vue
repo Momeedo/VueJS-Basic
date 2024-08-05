@@ -4,6 +4,12 @@
     </div>
     <div class="spacing"></div>
     <PropsDemo :propFromParent="propFromBasicPage"></PropsDemo>
+    <div>Selected Keywords from Parent: {{ propFromBasicPage }}</div>
+
+    <EmittingEvent @change="handleChange"></EmittingEvent>
+
+    <div>{{ fromParent }}</div>
+
     <div class="spacing"></div> 
     <div>
         <div v-if="!keywords.length">No Keywords in the list.</div>
@@ -28,6 +34,7 @@
 
 <script>
 import PropsDemo from '../components/PropsDemo.vue'
+import EmittingEvent from '../components/EmittingEvent.vue'
 export default {
     watch: {
         newKeyword(newKey, oldKey) {
@@ -55,17 +62,22 @@ export default {
             if (this.newKeyword.length === 0) {
                 this.deleteKeyword(this.keywords.length - 1);
             }
+        },
+        handleChange (emitFromChild) {
+            this.fromParent = "The vue received from Child's input: " + emitFromChild;
         }
     },
     data() {
         return {
             keywords: ["Sports", "Cinema", "Music"],
             newKeyword: "",
+            fromParent: "Parent default value.",
             propFromBasicPage: ["VueJS", "Laravel", "DevOps"],
         }
     },
     components: {
-        PropsDemo
+        PropsDemo, 
+        EmittingEvent
     },
     mounted() {
         setTimeout(() => {
